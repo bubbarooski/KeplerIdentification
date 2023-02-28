@@ -1,4 +1,4 @@
-#General To Do list
+# General To Do list
  - Decide what model or algorithm to use for project
  - Experiement with LightCurve and pulling data
  - ~~Collect data for confirmed/not confirmed from Kepler database~~
