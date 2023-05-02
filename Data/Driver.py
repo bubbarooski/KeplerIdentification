@@ -1,15 +1,14 @@
 import retreiveImageData
-import curvePhotos
+import transformDataset
 
 print("Enter filename: ")
 
 # KIC before input
-# kepID = input()
-# print(kepID)
+kepID = input()
+print(kepID)
 
-# curve = retreiveImageData.processCurve(kepID)
-# retreiveImageData.plotCurve(curve, kepID)
+curve = retreiveImageData.processCurve(kepID)
+retreiveImageData.plotCurve(curve, kepID)
 
 
-filename = input()
-curvePhotos.photoDriver(filename)
+# curvePhotos.photoDriver("keplerTrainingData.csv")

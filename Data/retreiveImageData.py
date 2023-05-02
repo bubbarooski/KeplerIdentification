@@ -1,7 +1,8 @@
 import lightkurve as lk
 from matplotlib import pyplot as plt
 
-folderName = "Lightcurves/"
+confirmedFolder = r"C:/Users/shane/Documents/GitHub/KeplerIdentification/Data/Lightcurves/Confirmed/"
+notConfirmedFolder = r"C:/Users/shane/Documents/GitHub/KeplerIdentification/Data/Lightcurves/Not Confirmed/"
 fileExtension = ".png"
 
 
@@ -14,9 +15,16 @@ def processCurve(starID):
 
 # Retrieving and removing outliers via Lightkurve itself
 def retrieveCurve(name):
-    lcs = lk.search_lightcurve(name, author='Kepler', limit=10).download_all()
-    lcRaw = lcs.stitch()
-    lcClean = lcRaw.remove_outliers(sigma=20, sigma_upper=4)
+    try:
+        lcs = lk.search_lightcurve(name, author='Kepler', limit=3).download_all()
+        lcRaw = lcs.stitch()
+        lcClean = lcRaw.remove_outliers(sigma=20, sigma_upper=4)
+        lcClean = lcClean.fill_gaps()
+        lcClean = lcClean.flatten()
+        lcClean = lcClean.bin()
+    except:
+        print("Bad curve")
+        pass
 
     return lcClean
 
@@ -27,19 +35,36 @@ def transformCurve(lightCurve):
     df.reset_index(inplace=True)
     simpleLightCurve = df[['time', 'flux']]
 
+
     return simpleLightCurve
 
 
 # Plotting
-def plotCurve(lightCurve, kepID):
-    plt.figure(figsize=(10,6))
+def plotCurve(lightCurve, kepID, type):
+    plt.figure(figsize=(1,.5))
     plt.axis('off')
-    plt.plot(lightCurve.time, lightCurve.flux)
+    plt.plot(lightCurve.time, lightCurve.flux, lw=.25, color='k')
 
     # Saving figure
-    export = folderName + kepID + fileExtension
-    plt.savefig(export, format="png", dpi=500, bbox_inches='tight')
+    if type == 1:
+        export = confirmedFolder + kepID + fileExtension
+        plt.savefig(export, format="png", dpi=750, bbox_inches='tight')
+        plt.close()
+    else:
+        export = notConfirmedFolder + kepID + fileExtension
+        plt.savefig(export, format="png", dpi=750, bbox_inches='tight')
+        plt.close()
+
+
+def plotCurvePretty(lightCurve):
+    plt.figure(figsize=(6, 4))
+    # plt.axis('off')
+    plt.title("Light Curve")
+    plt.xlabel("Time")
+    plt.ylabel("Flux")
+    plt.plot(lightCurve.time, lightCurve.flux, lw=1, color='k')
     plt.show()
+
 
 
 # Tried messing with changing the scaling to account for different types of curves ------
