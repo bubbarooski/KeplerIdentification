@@ -6,3 +6,8 @@
 .idea/vcs.xml
 Data/__pycache__/curvePhotos.cpython-39.pyc
 Data/__pycache__/retreiveImageData.cpython-39.pyc
+Data/__pycache__/dataProcessing.cpython-39.pyc
+*.xml
+*.png
+*.pyc
+*.h5
