@@ -1,3 +1,8 @@
+"""
+retrieveImageData
+Purpose: Contains all of the functions used to process a Kepler ID and retrieve its light curve.
+"""
+
 import lightkurve as lk
 from matplotlib import pyplot as plt
 
@@ -6,17 +11,31 @@ notConfirmedFolder = r"C:/Users/shane/Documents/GitHub/KeplerIdentification/Data
 fileExtension = ".png"
 
 
-# Main function to process the curve
 def processCurve(starID):
+    """
+    processCurve: Driver function for processing and retrieving curve for training data
+        Parameters:
+            starID, valid Kepler ID in form "KIC ######"
+        Returns:
+            curveDF, pandas dataframe of light curve
+    """
+
     curve = retrieveCurve(starID)
     curveDF = transformCurve(curve)
     return curveDF
 
 
-# Retrieving and removing outliers via Lightkurve itself
-def retrieveCurve(name):
+def retrieveCurve(starID):
+    """
+    retrieveCurve: searches via lightkurve API for curve and processes curve
+        Parameters:
+            starID, valid Kepler ID in form "KIC ######"
+        Returns:
+            lcClean, a clean light curve object
+    """
+
     try:
-        lcs = lk.search_lightcurve(name, author='Kepler', limit=3).download_all()
+        lcs = lk.search_lightcurve(starID, author='Kepler', limit=3).download_all()
         lcRaw = lcs.stitch()
         lcClean = lcRaw.remove_outliers(sigma=20, sigma_upper=4)
         lcClean = lcClean.fill_gaps()
@@ -29,8 +48,16 @@ def retrieveCurve(name):
     return lcClean
 
 
-# Converting to dataframe and only keeping time and flux columns
 def transformCurve(lightCurve):
+    """
+    transformCurve: transforms a light curve object into a dataframe consisting of time and
+    flux only
+        Parameters:
+            lightCurve, a light curve object
+        Returns:
+            simpleLightCurve, pandas dataframe of light curve
+    """
+
     df = lk.LightCurve.to_pandas(lightCurve)
     df.reset_index(inplace=True)
     simpleLightCurve = df[['time', 'flux']]
@@ -39,8 +66,17 @@ def transformCurve(lightCurve):
     return simpleLightCurve
 
 
-# Plotting
 def plotCurve(lightCurve, kepID, type):
+    """
+    plotCurve: creates plot of curve and saves it to corresponding directory
+        Parameters:
+            lightCurve, a light curve object
+            kepID, valid Kepler ID in form "KIC ######"
+            type, flag indicating confirmed or not confirmed
+        Returns:
+            void
+    """
+
     plt.figure(figsize=(1,.5))
     plt.axis('off')
     plt.plot(lightCurve.time, lightCurve.flux, lw=.25, color='k')
@@ -56,7 +92,16 @@ def plotCurve(lightCurve, kepID, type):
         plt.close()
 
 
+
 def plotCurvePretty(lightCurve):
+    """
+    plotCurvePretty: creates nicer plot of light curve and displays it to user
+        Parameters:
+            lightCurve, a light curve object
+        Returns:
+            void
+    """
+
     plt.figure(figsize=(6, 4))
     # plt.axis('off')
     plt.title("Light Curve")

@@ -1,3 +1,8 @@
+"""
+tfCustomDataset
+Purpose: used by all of the model to generate the datasets used for training and validation
+"""
+
 import tensorflow as tf
 import random
 

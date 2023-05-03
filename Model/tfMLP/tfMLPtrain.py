@@ -1,11 +1,19 @@
+"""
+tfMLPtrain
+Purpose: Contains everything used to train the MLP and saves the model for future use
+"""
+
+import matplotlib as plt
 from tensorflow import keras
 from tensorflow.keras import layers
 import Model.tfCustomDataset as dataset
 
+# Setting parameters
 epochs = 100
 batchSize = 25
 inputShape = (dataset.imageHeight, dataset.imageWidth)
 
+# Building model
 keplerMLP = keras.models.Sequential()
 keplerMLP.add(layers.Flatten(input_shape=inputShape))
 keplerMLP.add(layers.Dense(64, activation='relu'))
@@ -20,9 +28,16 @@ metrics = ["accuracy"]
 
 keplerMLP.compile(optimizer=optimization, loss=loss, metrics=metrics)
 
-keplerMLP.fit(dataset.datasetTrain, epochs=epochs, batch_size=batchSize, verbose=2)
+hist = keplerMLP.fit(dataset.datasetTrain, epochs=epochs, batch_size=batchSize, verbose=2)
 
 keplerMLP.evaluate(dataset.datasetValidation, batch_size=batchSize, verbose=2)
 
 keplerMLP.save('keplerMLP.h5')
 # print(keplerCNN.get_weights())
+
+fig = plt.figure()
+plt.plot(hist.history['loss'], color='teal', label='loss')
+plt.plot(hist.history['accuracy'], color='teal', label='accuracy')
+fig.suptitle('Accuracy vs Loss')
+plt.legend(loc='upper right')
+plt.show()

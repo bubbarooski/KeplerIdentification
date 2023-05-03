@@ -1,4 +1,10 @@
-import transformDataset
+"""
+datasetRetrieval
+Purpose: This is used to download and export light curves to the Lightcurves directory. You
+specify a max and min index of the main Kepler dataset to iterate through and it will retrieve
+the light curves and export it to either the "Confirmed" or "Not Confirmed" folders.
+"""
+
 import pandas as pd
 import retreiveImageData
 
@@ -19,12 +25,14 @@ for x in range(maxIndex - minIndex + 1):
     kepID = kic + kepID
     print("Exporting light curve: " + kepID + " at index " + str(currentIndex))
 
+    # Flag to determine if light curve has confirmed body or not
     status = dataset['koi_disposition'][currentIndex]
     if status == "CONFIRMED":
         confirmed = 1
     else:
         confirmed = 0
 
+    # Retrieving curve and saving to proper directory
     curve = retreiveImageData.processCurve(kepID)
     retreiveImageData.plotCurve(curve, kepID, confirmed)
     currentIndex += 1

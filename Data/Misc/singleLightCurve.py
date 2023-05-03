@@ -1,17 +1,31 @@
+"""
+singleLightCurve
+Purpose: used to test feature extraction on light curves
+"""
+
 import pandas as pd
 from Data.retreiveImageData import processCurve
 
 
 def processSingleLightcurve(index):
+    """
+    processingSingleLightcurve: Drive function for feature extraction
+        Parameters:
+            index, index of keplerDataset
+        Returns:
+            curveDF, pandas dataframe of light curve
+
+    """
+
     kic = "KIC "
-    dataset = pd.read_csv(r"C:\Users\shane\Documents\GitHub\KeplerIdentification\Data\keplerDataset.csv")
+    dataset = pd.read_csv(r"/Data/keplerDataset.csv")
 
     kepID = dataset['kepid'][index]
     data = []
 
     for index, row in dataset.iterrows():
         if dataset['kepid'][index] == kepID:
-          disposition = dataset['koi_disposition'][index]
+            disposition = dataset['koi_disposition'][index]
 
 
     kepID = str(kepID)
@@ -40,7 +54,7 @@ def processSingleLightcurve(index):
     data.append(varianceFlux)
 
     curveDF = pd.DataFrame([data], columns=['kepid', 'koi_disposition', 'maxFlux',
-                                          'minFlux', 'meanFlux', 'p2pFlux', 'varianceFlux'])
+                                            'minFlux', 'meanFlux', 'p2pFlux', 'varianceFlux'])
 
     # print(curveDF.head())
 

@@ -1,10 +1,17 @@
+"""
+Driver
+Purpose: This is the driver for the main program and allows the user to view the accuracy of all models or
+enter an index in the Kepler database to view its light curve, the predictions of all models, and the actual
+classification.
+"""
+
 from Model.NB.naiveBayes import naiveBayesAccuracy, naiveBayesPrediction
 from Model.KNN.kNearestNeighbors import knnAccuracy, knnPrediction
 from Model.SVM.SupportVectorMachine import SVMAccuracy, SVMPrediction
 from Model.tfCNN.tfCNNtest import cnnAccuracy, cnnTest
 from Model.tfGRU.tfGRUtest import gruAccuracy, gruTest
 from Model.tfMLP.tfMLPtest import mlpAccuracy, mlpTest
-import Data.singleLightCurve as single
+import Data.Misc.singleLightCurve as single
 from Data.retreiveImageData import processCurve, plotCurvePretty, plotCurve
 import pandas as pd
 

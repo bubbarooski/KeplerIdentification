@@ -1,7 +1,10 @@
-import tensorflow as tf
+"""
+testAll
+Purpose: used to test all models at one time using the same dataset
+"""
+
 from tensorflow.keras.models import load_model
 import Model.tfCustomDataset as dataset
-import numpy as np
 
 CNN = load_model('tfCNN/keplerCNN.h5')
 GRU = load_model('tfGRU/keplerGRU.h5')

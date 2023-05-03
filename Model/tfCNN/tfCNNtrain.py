@@ -1,26 +1,32 @@
+"""
+tfCNNtrain
+Purpose: Contains everything used to train the CNN and saves the model for future use
+"""
+
 import matplotlib.pyplot as plt
-import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 import Model.tfCustomDataset as dataset
 
+# Setting parameters
 epochs = 50
 batchSize = 5
-inputShape = (dataset.imageHeight, dataset.imageWidth, 1)
+inputShape = (dataset.imageHeight, dataset.imageWidth)
 
+# Building model
 keplerCNN = keras.models.Sequential()
-keplerCNN.add(layers.Conv2D(32, 5, activation='relu', input_shape=inputShape))
-keplerCNN.add(layers.MaxPool2D(3))
-keplerCNN.add(layers.Conv2D(32, 5, activation='relu'))
-keplerCNN.add(layers.MaxPool2D(3))
+keplerCNN.add(layers.Conv1D(128, 30, activation='relu', input_shape=inputShape))
+keplerCNN.add(layers.MaxPool1D(10))
+keplerCNN.add(layers.Conv1D(32, 30, activation='relu'))
+keplerCNN.add(layers.MaxPool1D(10))
 keplerCNN.add(layers.Flatten())
-keplerCNN.add(layers.Dense(4, activation='relu'))
+keplerCNN.add(layers.Dense(10, activation='relu'))
 keplerCNN.add(layers.Dense(1, activation='sigmoid'))
 keplerCNN.build()
 # print(keplerCNN.summary())
 
 loss = keras.losses.BinaryCrossentropy()
-optimization = keras.optimizers.Adam(learning_rate=.0001)
+optimization = keras.optimizers.Adam(learning_rate=.00001)
 metrics = ["accuracy"]
 
 keplerCNN.compile(optimizer=optimization, loss=loss, metrics=metrics)

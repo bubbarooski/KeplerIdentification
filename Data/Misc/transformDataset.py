@@ -1,4 +1,3 @@
-import retreiveImageData
 import pandas as pd
 
 
