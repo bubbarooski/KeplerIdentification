@@ -11,7 +11,7 @@ from Model.SVM.SupportVectorMachine import SVMAccuracy, SVMPrediction
 from Model.tfCNN.tfCNNtest import cnnAccuracy, cnnTest
 from Model.tfGRU.tfGRUtest import gruAccuracy, gruTest
 from Model.tfMLP.tfMLPtest import mlpAccuracy, mlpTest
-import Data.Misc.singleLightCurve as single
+import Data.singleLightCurve as single
 from Data.retreiveImageData import processCurve, plotCurvePretty, plotCurve
 import pandas as pd
 

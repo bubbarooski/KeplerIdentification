@@ -14,11 +14,10 @@ def processSingleLightcurve(index):
             index, index of keplerDataset
         Returns:
             curveDF, pandas dataframe of light curve
-
     """
 
     kic = "KIC "
-    dataset = pd.read_csv(r"/Data/keplerDataset.csv")
+    dataset = pd.read_csv("C:/Users/shane/Documents/GitHub/KeplerIdentification/Data/keplerDataset.csv")
 
     kepID = dataset['kepid'][index]
     data = []
