@@ -23,6 +23,6 @@ The accuracy of each algorithm is listed below:
  - GRU: 75.57%
  - MLP: 92.61%
 
-For the traditional classifiers, I believe the accuracy is low because there are not enough features and the features that were used are not helpful. In the future, I wish to extract more useful features to make these models more accurate. For the neural networks, both CNN and MLP performed well, with over 90% accuracy. GRU did not perform well but I had a hard time training it on my laptop. Epochs were taking up to 5 mintues to cycle through. With more computing power, I think all 3 algorithms could be improved apon.
+For the traditional classifiers, I believe the accuracy is low because there are not enough features and the features that were used are not helpful. In the future, I wish to extract more useful features to make these models more accurate. For the neural networks, both CNN and MLP performed well, with over 90% accuracy. GRU did not perform well but I had a hard time training it on my laptop. Epochs were taking up to 5 mintues to cycle through. With more computing power, I think all 3 algorithms could be improved apon. The models generated are not included in this repo, as they are too large, but the structure of each algorthim can be seen in its respective folder in the Model directory.
 
 I will attach more detailed analysis soon. :)
