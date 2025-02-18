@@ -25,4 +25,6 @@ The accuracy of each algorithm is listed below:
 
 For the traditional classifiers, I believe the accuracy is low because there are not enough features and the features that were used are not helpful. In the future, I wish to extract more useful features to make these models more accurate. For the neural networks, both CNN and MLP performed well, with over 90% accuracy. GRU did not perform well but I had a hard time training it on my laptop. Epochs were taking up to 5 mintues to cycle through. With more computing power, I think all 3 algorithms could be improved apon. The models generated are not included in this repo, as they are too large, but the structure of each algorthim can be seen in its respective folder in the Model directory.
 
-I will attach more detailed analysis soon. :)
+# Research
+This project was the basis of the paper I published called "Kepler Light Curve Classification Using Deep Learning and Markov Transition Field (Student Abstract)". We wanted to see if converting the light curve into a different form, such as a Markov Transition Field, and designing a more efficient convolutional nerual network would lead to a higher classification accuracy. Turns out that it did. 
+ - The paper can be found here: https://ojs.aaai.org/index.php/AAAI/article/view/30435
